@@ -1,0 +1,20 @@
+[Unit]
+Description=GCPMX GFW Probe Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/gcpmx-probe
+EnvironmentFile=-/etc/gcpmx-probe/probe.env
+ExecStart=/opt/gcpmx-probe/.venv/bin/uvicorn app:app --host 0.0.0.0 --port 9090
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
